@@ -55,7 +55,7 @@ This ensured that only past information was used to predict, preventing any type
 
 ## Model and Evaluation
 Random Forest Regressor was trained using the engineered features and its performance was evaluated by mean absolute percentage error.
-final mape ~0.00335(3.4%)
+final mape ~0.0335(3.4%)
 
 ------
 
