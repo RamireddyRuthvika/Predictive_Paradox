@@ -9,6 +9,7 @@
 
 ## Converting to Hourly Data and Resampling
 Timestamps were put in order by date and time.
+
 Weighted averaging based on time differences was used to deal with irregular timestamps, such as half-hour intervals. By this timestamps were accurately converted to hourly time series with accurate data(Only convertable and essential data was redistributed hourly).
 
 ------
@@ -41,27 +42,34 @@ Ultimately, population was chosen as a macroeconomic feature since it is more st
 ------
 
 ## Target Definition and Data Leakage Handeling
-The target was defined as the next hour demand, created by shifting data of demand by one step ahead
+The target was defined as the next hour demand, created by shifting data of demand by one step ahead.
+
 Coloumns which may lead to data leakage or psuedo data leakage (such as energy generation, generation by each power source these match the present demand directly or indirectly and generation depends on demand but not the otherway) were dropped in train_X data and test_X data and total population, GDP were merged with hourly data after lagging by 1 year. Above steps ensures that there is no data leakage.  
 
 -------
 
 ## Train and Test Split
 Training Data : up to 2023
+
 Test Data : 2024
+
 This ensured that only past information was used to predict, preventing any type of leakage from future data.
 
 ------
 
 ## Model and Evaluation
 Random Forest Regressor was trained using the engineered features and its performance was evaluated by mean absolute percentage error.
+
 final mape ~0.0335(3.4%)
 
 ------
 
 ## Key Insights from Feature Importance
 lag_1(previous hour demand) was the most important feature contributing almost 67% in the prediction that says the strong dependency of next hours demand on current hour.
+
 rolling_mean also have significant effect on predicting future demand by capturing recent trends.
+
 Daily lag(lag_24) helped model to predict daily patterns.
 Some of the weather features like temparature also have significant effects on energy demands while others like wind direction does not effect on large scale.
+
 Macroeconomic features like population has very limited impact on hourly energy demand confirming that short term demand like horly demand depends mainly on recent history of the demand rather than long term economic factors.
